@@ -7,6 +7,9 @@ const router = express.Router();
 
 router.get('/me', verifyLogin, userCotroller.me);
 
+router.post('/applyForDoctor', verifyLogin, userCotroller.applyForDoctor);
+
+
 
 
 export default router;
