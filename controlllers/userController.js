@@ -49,6 +49,32 @@ class UserController {
             next(error)
         }
     }
+
+    getUnseenNotifications = async (req, res, next) => {
+        try {
+            const id = req.user.id
+            const response = await userService.getUnseenNotifications(id);
+            return res.status(200).json({
+                success: true,
+                data: response,
+            })
+        } catch (error) {
+            return next(error);
+        }
+    }
+
+    getSeenNotifications = async (req, res, next) => {
+        try {
+            const id = req.user.id
+            const response = await userService.getSeenNotifications(id);
+            return res.status(200).json({
+                success: true,
+                data: response,
+            })
+        } catch (error) {
+            return next(error);
+        }
+    }
 }
 
 export default UserController

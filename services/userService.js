@@ -58,17 +58,42 @@ class UserService {
         })
     }
 
-    listUsers = ({page, limit}) => {
+    listUsers = ({ page, limit }) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const users = await User.find({}).skip(page*limit).limit(limit).sort({createdAt: -1}).lean();
-                return resolve(users);
+                const users = await User.find({})
+                    .skip(page * limit)
+                    .limit(limit)
+                    .sort({ createdAt: -1 })
+                    .lean()
+                return resolve(users)
             } catch (error) {
-                return reject(error);
+                return reject(error)
             }
         })
     }
 
+    getUnseenNotifications = (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const notifications = await Notification.find({userId : id, seen: false}).sort({createdAt: -1}).lean();
+                return resolve(notifications);
+            } catch (error) {
+                return reject(error)
+            }
+        })
+    }
+
+    getSeenNotifications = (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const notifications = await Notification.find({userId : id, seen: true}).sort({createdAt: -1}).lean();
+                return resolve(notifications);
+            } catch (error) {
+                return reject(error)
+            }
+        })
+    }
 }
 
 export default UserService
